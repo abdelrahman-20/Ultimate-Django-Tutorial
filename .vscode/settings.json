@@ -1,0 +1,4 @@
+{
+  "python-envs.defaultEnvManager": "ms-python.python:pipenv",
+  "sqlite.sqlite3": "/usr/bin/sqlite3"
+}

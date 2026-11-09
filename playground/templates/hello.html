@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello</title>
+  </head>
+  <body
+    style="
+      background-color: #333;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+    "
+  >
+    <center>
+      <h1>Hello World !!</h1>
+
+      <hr />
+      <h2>Products</h2>
+
+      <table border="1" cellpadding="10" cellspacing="0" width="60%">
+        <thead>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Discounted Price</th>
+        </thead>
+
+        <tbody>
+          {% for product in results %}
+          <tr>
+            <th>{{ product.id }}</th>
+            <th>{{ product.title }}</th>
+            <th>{{ product.discounted_price }}</th>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+        <tfoot />
+      </table>
+
+      <br />
+      {% comment %}
+      <hr />
+      <h2>Product Statistics</h2>
+      <p>Total Products: {{ result.total_products }}</p>
+      <p>Minimum Price: {{ result.min_price }}</p>
+      <p>Maximum Price: {{ result.max_price }}</p>
+      <p>Average Price: {{ result.avg_price }}</p>
+      <p>Total Inventory: {{ result.total_inventory }}</p>
+      <hr />
+      {% endcomment %}
+    </center>
+  </body>
+</html>
