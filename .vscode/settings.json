@@ -1,4 +1,11 @@
 {
   "python-envs.defaultEnvManager": "ms-python.python:pipenv",
-  "sqlite.sqlite3": "/usr/bin/sqlite3"
+  "sqlite.sqlite3": "/usr/bin/sqlite3",
+  "editor.defaultFormatter": "ms-python.black-formatter",
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "dbcode.dbcode"
+  }
 }

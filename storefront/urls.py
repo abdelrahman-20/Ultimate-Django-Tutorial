@@ -24,6 +24,8 @@ admin.site.site_header = "Storefront Admin Dashboard"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("auth/", include("djoser.urls")),
+    path("auth/", include("djoser.urls.jwt")),
     path("overview/", include("playground.urls")),
     path("store/", include("store.urls")),
 ] + debug_toolbar_urls()

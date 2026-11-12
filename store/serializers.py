@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.http import urlencode
 from rest_framework import serializers
-from store.models import Cart, CartItem, Product, Collection, Review
+from store.models import Cart, CartItem, Customer, Product, Collection, Review
 
 """
 Collection Serializer
@@ -108,6 +108,11 @@ class SimpleProductSerializer(serializers.ModelSerializer):
         fields = ["id", "title", "unit_price"]
 
 
+"""
+Cart Items Serializer
+"""
+
+
 class CartItemSerializer(serializers.ModelSerializer):
     product = SimpleProductSerializer()
     total_price = serializers.SerializerMethodField(method_name="get_total_price")
@@ -136,3 +141,22 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = ["id", "items", "total_price"]
+
+
+"""
+Customer Serializer
+"""
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = [
+            "id",
+            "first_name",
+            "last_name",
+            "email",
+            "phone",
+            "birth_date",
+            "membership",
+        ]

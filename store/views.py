@@ -1,25 +1,49 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import status
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.mixins import (
     CreateModelMixin,
     RetrieveModelMixin,
+    UpdateModelMixin,
     DestroyModelMixin,
 )
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from .filters import ProductFilter
-from .models import Cart, Collection, OrderItem, Product, Review
+from .models import Cart, Collection, Customer, OrderItem, Product, Review
 from .pagination import DefaultPagination
 from .serializers import (
     CartSerializer,
     CollectionSerializer,
+    CustomerSerializer,
     ProductSerializer,
     ReviewSerializer,
 )
+
+"""Revision"""
+
+
+@api_view()
+def product_list(request):
+    product = Product.objects.all()
+    serializer = ProductSerializer(product, many=True)
+    return Response(serializer.data)
+
+
+@api_view()
+def product_details(request, pk):
+
+    product = Product.objects.get(pk=pk)
+    serializer = ProductSerializer(product)
+    return Response(serializer.data)
+
+
+"""----End of Revision----"""
 
 """Collections Controllers"""
 
@@ -105,3 +129,19 @@ class CartsViewSet(
 ):
     queryset = Cart.objects.prefetch_related("items__product")
     serializer_class = CartSerializer
+
+
+"""Customer ViewSet"""
+
+
+class CustomersViewSet(
+    CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet
+):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+
+    # @action(detail=False)
+    # def me(self, request):
+    #     customer = Customer.objects.get(pk=request.user.id)
+    #     serializer = CustomerSerializer(customer)
+    #     return Response(request.user)
