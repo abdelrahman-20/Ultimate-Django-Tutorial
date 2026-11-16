@@ -218,6 +218,98 @@
 
 ---
 
-## Timing: `04:02:55`
+## Timing: `01:09:00`
 
 ---
+
+## Original-TimeStamps
+
+0:00 - Section 1 - Getting Started
+
+---
+
+6:58 - Section 2 - Building Restful APIs
+7:36 - What are Restful APIs?
+11:05 - Resource Representations
+13:11 - HTTP Methods
+15:15 - Installing Django REST Framework
+16:13 - Creating API Views
+24:21 - Creating Serializers
+28:25 - Serializing Objects
+34:39 - Creating Custom Serializer Fields
+39:09 - Serializing Relationships
+48:00 - Model Serializers
+52:49 - Deserializing Objects
+1:01:02 - Saving Objects
+1:09:01 - Deleting Objects
+1:13:27 - Exercise: Building the Collections API
+
+---
+
+1:18:19 - Section 3 - Advanced API Concepts
+1:18:53 - Class-based Views
+1:23:07 - Mixins
+1:27:24 - Generic Views
+1:34:30 - Customizing Generic Views
+1:39:03 - ViewSets
+1:44:03 - Routers
+1:53:03 - Building the Reviews API
+1:57:11 - Nested Routers
+2:07:06 - Filtering
+2:11:54 - Generic Filtering
+2:18:17 - Searching
+2:20:35 - Sorting
+2:22:19 - Pagination
+
+---
+
+2:27:39 - Section 4 - Building a Shopping Cart
+2:28:01 - Designing a Shopping Cart API
+2:44:37 - Getting a Cart
+2:54:16 - Deleting a Cart
+2:56:07 - Getting Cart Items
+3:00:59 - Adding a Cart Item
+3:13:19 - Update a Cart Item
+3:15:21 - Deleting a Cart Item
+
+---
+
+3:16:24 - Section 5 - Django Authentication System
+3:17:03 - Django Authentication System
+3:20:14 - Customizing the User Model
+3:22:22 - Extending the User Model
+3:32:57 - Creating User Profiles
+3:39:57 - Groups and Permissions
+3:42:54 - Creating Custom Permissions
+
+---
+
+3:45:06 - Section 6 - Securing APIs
+3:45:44 - Token-based Authentication
+3:47:14 - Adding the Authentication Endpoints
+3:53:35 - Registering Users
+4:02:55 - Building the Profile API
+4:07:59 - Logging in
+4:12:56 - Inspecting a JSON Web Token
+4:16:27 - Refreshing Tokens
+4:17:45 - Getting the Current User
+4:22:30 - Getting Current User's Profile
+4:29:30 - Applying Permissions
+4:33:35 - Applying Custom Permissions
+4:40:40 - Applying Model Permissions
+4:45:20 - Applying Custom Model Permissions
+
+---
+
+4:49:54 - Section 7 - Building the Orders API
+4:50:16 - Designing the Orders API
+4:51:32 - Getting the Orders
+4:57:16 - Applying Permissions
+5:03:54 - Creating an Order
+5:08:56 - Creating Order Items
+5:15:45 - Returning the Created Order
+5:19:37 - Data Validation
+5:23:06 - Revisiting the Permissions
+5:24:56 - Updating an Order
+5:27:16 - Signals
+5:35:24 - Creating Custom Signals

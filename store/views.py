@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -28,22 +27,36 @@ from .serializers import (
 """Revision"""
 
 
-@api_view()
+@api_view(["GET", "POST"])
 def product_list(request):
-    product = Product.objects.all()
-    serializer = ProductSerializer(product, many=True)
-    return Response(serializer.data)
+    if request.method == "GET":
+        queryset = Product.objects.select_related("collection").all()
+        serializer = ProductSerializer(queryset, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == "POST":
+        serializer = ProductSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view()
+@api_view(["GET", "PUT", "DELETE"])
 def product_details(request, pk):
-
-    product = Product.objects.get(pk=pk)
+    product = get_object_or_404(Product, pk=pk)
     serializer = ProductSerializer(product)
-    return Response(serializer.data)
 
+    if request.method == "GET":
+        return Response(serializer.data)
+    elif request.method == "PUT":
+        serializer.update(product, request.data)
+        return Response(serializer.data)
+    elif request.method == "DELETE":
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-"""----End of Revision----"""
 
 """Collections Controllers"""
 

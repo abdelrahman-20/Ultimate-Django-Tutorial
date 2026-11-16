@@ -13,20 +13,20 @@ Collection Serializer
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = ["id", "title", "product_count", "collection_link"]
+        fields = ["id", "title"]
+        # , "product_count", "collection_link"]
 
-    product_count = serializers.SerializerMethodField(method_name="get_product_count")
-    collection_link = serializers.SerializerMethodField(
-        method_name="get_collection_link"
-    )
+    # product_count = serializers.SerializerMethodField(method_name="get_product_count")
+    # collection_link = serializers.SerializerMethodField(
+    #     method_name="get_collection_link"
+    # )
 
     def get_product_count(self, collection: Collection):
         return collection.products.count()  # type: ignore
 
     def get_collection_link(self, collection: Collection):
-        url = "http://127.0.0.1:8000/store/collections/" + str(collection.id)  # type: ignore
-
-        return format_html("{}", url)  # type: ignore
+        url = "http://127.0.0.1:8000/store/collections/" + str(collection.pk)
+        return format(f"{url}")
 
 
 """
@@ -50,6 +50,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     price = serializers.DecimalField(6, 2, source="unit_price")
     price_with_tax = serializers.SerializerMethodField(method_name="calculate_tax")
+    collection = serializers.StringRelatedField(read_only=True)
 
     def calculate_tax(self, product: Product):
         return product.unit_price * Decimal(1.1)
@@ -66,13 +67,20 @@ class ProductSerializer(serializers.ModelSerializer):
     #     return instance
 
     """
+    ## Collection-ID:
+    # collection = serializers.PrimaryKeyRelatedField(queryset=Collection.objects.all())
+    
+    ## Collection-Title: <string representation>
+    # collection = serializers.StringRelatedField(read_only=True)
+
+    ## Nested Object
+    # collection = CollectionSerializer()
+    
     ## Hyper-Link
     # collection = serializers.HyperlinkedRelatedField(
     #     queryset=Collection.objects.all(),
     #     view_name="collection-details",
     # )
-    ## Nested Object
-    # collection = CollectionSerializer()
     """
 
 
