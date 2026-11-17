@@ -54,9 +54,19 @@ def product_details(request, pk):
         serializer.update(product, request.data)
         return Response(serializer.data)
     elif request.method == "DELETE":
+        if product.order_items.count() > 0:  # type: ignore
+            return Response(
+                {
+                    "error": "Product cannot be deleted because it is associated with an order item."
+                },
+                status=status.HTTP_405_METHOD_NOT_ALLOWED,
+            )
+
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+# TODO => Build The Collection API
 
 """Collections Controllers"""
 
