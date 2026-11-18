@@ -17,8 +17,9 @@ products_router.register("reviews", views.ReviewViewSet, basename="product-revie
 urlpatterns = [
     # path("", include(router.urls)),
     # path("", include(products_router.urls)),
-    path("products/", views.product_list),
-    path("products/<int:pk>", views.product_details),
+    path("products/", views.ProductList.as_view()),
+    path("products/<int:pk>", views.ProductDetails.as_view()),
+    path("collections/", views.collection_list),
 ]
 
 """

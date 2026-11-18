@@ -11,22 +11,24 @@ Collection Serializer
 
 
 class CollectionSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Collection
-        fields = ["id", "title"]
-        # , "product_count", "collection_link"]
+        fields = ["id", "title", "products_count"]  # "product_count", "collection_link"
+
+    products_count = serializers.IntegerField(read_only=True)
 
     # product_count = serializers.SerializerMethodField(method_name="get_product_count")
     # collection_link = serializers.SerializerMethodField(
     #     method_name="get_collection_link"
     # )
 
-    def get_product_count(self, collection: Collection):
-        return collection.products.count()  # type: ignore
+    # def get_product_count(self, collection: Collection):
+    #     return collection.products.count()  # type: ignore
 
-    def get_collection_link(self, collection: Collection):
-        url = "http://127.0.0.1:8000/store/collections/" + str(collection.pk)
-        return format(f"{url}")
+    # def get_collection_link(self, collection: Collection):
+    #     url = "http://127.0.0.1:8000/store/collections/" + str(collection.pk)
+    #     return format(f"{url}")
 
 
 """
