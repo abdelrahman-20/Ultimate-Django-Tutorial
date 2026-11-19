@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import status
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -29,38 +30,26 @@ from .serializers import (
 """Revision"""
 
 
-class ProductList(APIView):
-    def get(self, request):
-        queryset = Product.objects.select_related("collection").all()
-        serializer = ProductSerializer(queryset, many=True)
-        return Response(serializer.data)
+class ProductList(ListCreateAPIView):
+    def get_queryset(self):
+        return Product.objects.select_related("collection").order_by("-id").all()
 
-    def post(self, request):
-        serializer = ProductSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+    def get_serializer_class(self):
+        return ProductSerializer
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    def get_serializer_context(self):
+        return {"request": self.request}
 
 
-class ProductDetails(APIView):
+class ProductDetails(RetrieveUpdateDestroyAPIView):
+    def get_queryset(self):
+        return Product.objects.select_related("collection").order_by("-id").all()
 
-    def get(self, request, pk):
-        product = get_object_or_404(Product, pk=pk)
-        serializer = ProductSerializer(product, many=True)
-        return serializer.data
+    def get_serializer_class(self):
+        return ProductSerializer
 
-    def put(self, request, pk):
-        product = get_object_or_404(Product, pk=pk)
-        serializer = ProductSerializer(product, request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response(serializer.data)
-
-    def delete(self, request, pk):
-
-        product = get_object_or_404(Product, pk=pk)
+    def destroy(self, request, *args, **kwargs):
+        product = get_object_or_404(Product, pk=kwargs["pk"])
         if product.order_items.count() > 0:  # type: ignore
             return Response(
                 {
@@ -69,40 +58,26 @@ class ProductDetails(APIView):
                 status=status.HTTP_405_METHOD_NOT_ALLOWED,
             )
 
-        product.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class CollectionList(ListCreateAPIView):
+
+    def get_queryset(self):
+        return Collection.objects.annotate(products_count=Count("products")).all()
+
+    def get_serializer_class(self):
+        return CollectionSerializer
 
 
-@api_view(["GET", "POST"])
-def collection_list(request):
-    if request.method == "GET":
-        collections = Collection.objects.annotate(
-            products_count=Count("products")
-        ).all()
-        serializer = CollectionSerializer(collections, many=True)
+class CollectionDetails(RetrieveUpdateDestroyAPIView):
+    def get_queryset(self):
+        return Collection.objects.annotate(products_count=Count("products")).all()
 
-        return Response(serializer.data)
-    elif request.method == "POST":
-        serializer = CollectionSerializer(request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+    def get_serializer_class(self):
+        return CollectionSerializer
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    def destroy(self, request, *args, **kwargs):
+        collection = get_object_or_404(Collection, pk=kwargs["pk"])
 
-
-@api_view(["GET", "PUT", "DELETE"])
-def collection_details(request, pk):
-    collection = get_object_or_404(Collection, pk=pk)
-    serializer = CollectionSerializer(collection)
-
-    if request.method == "GET":
-        return Response(serializer.data)
-
-    elif request.method == "PUT":
-        serializer.update(collection, request.data)
-        return Response(serializer.data)
-
-    elif request.method == "DELETE":
         if collection.products.count() > 0:  # type: ignore
             return Response(
                 {
@@ -113,6 +88,19 @@ def collection_details(request, pk):
 
         collection.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    # def delete(self, request, pk):
+    #     collection = get_object_or_404(Collection, pk=pk)
+    #     if collection.products.count() > 0:  # type: ignore
+    #         return Response(
+    #             {
+    #                 "error": "Collection cannot be deleted because it includes one or more products.!!!"
+    #             },
+    #             status=status.HTTP_405_METHOD_NOT_ALLOWED,
+    #         )
+
+    #     collection.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 """Collections Controllers"""

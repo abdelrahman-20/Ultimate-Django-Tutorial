@@ -52,7 +52,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
     price = serializers.DecimalField(6, 2, source="unit_price")
     price_with_tax = serializers.SerializerMethodField(method_name="calculate_tax")
-    collection = serializers.StringRelatedField(read_only=True)
+    collection = serializers.PrimaryKeyRelatedField(queryset=Collection.objects.all())
+    # collection = serializers.StringRelatedField(read_only=True)
 
     def calculate_tax(self, product: Product):
         return product.unit_price * Decimal(1.1)

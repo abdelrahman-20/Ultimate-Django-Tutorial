@@ -224,11 +224,12 @@
 
 ## Original-TimeStamps
 
-0:00 - Section 1 - Getting Started
+### 0:00 - Section 1 - Getting Started
 
 ---
 
-6:58 - Section 2 - Building Restful APIs
+### 6:58 - Section 2 - Building Restful APIs
+
 7:36 - What are Restful APIs?
 11:05 - Resource Representations
 13:11 - HTTP Methods
@@ -246,11 +247,12 @@
 
 ---
 
-1:18:19 - Section 3 - Advanced API Concepts
+### 1:18:19 - Section 3 - Advanced API Concepts
+
 1:18:53 - Class-based Views
 1:23:07 - Mixins
 1:27:24 - Generic Views
-1:34:30 - Customizing Generic Views
+1:34:30 - Customizing Generic Views <<
 1:39:03 - ViewSets
 1:44:03 - Routers
 1:53:03 - Building the Reviews API
@@ -263,7 +265,8 @@
 
 ---
 
-2:27:39 - Section 4 - Building a Shopping Cart
+### 2:27:39 - Section 4 - Building a Shopping Cart
+
 2:28:01 - Designing a Shopping Cart API
 2:44:37 - Getting a Cart
 2:54:16 - Deleting a Cart
@@ -274,7 +277,8 @@
 
 ---
 
-3:16:24 - Section 5 - Django Authentication System
+### 3:16:24 - Section 5 - Django Authentication System
+
 3:17:03 - Django Authentication System
 3:20:14 - Customizing the User Model
 3:22:22 - Extending the User Model
@@ -284,7 +288,8 @@
 
 ---
 
-3:45:06 - Section 6 - Securing APIs
+### 3:45:06 - Section 6 - Securing APIs
+
 3:45:44 - Token-based Authentication
 3:47:14 - Adding the Authentication Endpoints
 3:53:35 - Registering Users
@@ -301,7 +306,8 @@
 
 ---
 
-4:49:54 - Section 7 - Building the Orders API
+### 4:49:54 - Section 7 - Building the Orders API
+
 4:50:16 - Designing the Orders API
 4:51:32 - Getting the Orders
 4:57:16 - Applying Permissions
