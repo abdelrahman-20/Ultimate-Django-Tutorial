@@ -218,7 +218,7 @@
 
 ---
 
-## Timing: `1:23:07`
+## Timing: `1:52:30`
 
 ---
 
@@ -252,10 +252,10 @@
 1:18:53 - Class-based Views
 1:23:07 - Mixins
 1:27:24 - Generic Views
-1:34:30 - Customizing Generic Views <<
+1:34:30 - Customizing Generic Views
 1:39:03 - ViewSets
 1:44:03 - Routers
-1:53:03 - Building the Reviews API
+1:53:03 - Building the Reviews API <
 1:57:11 - Nested Routers
 2:07:06 - Filtering
 2:11:54 - Generic Filtering
